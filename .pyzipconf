@@ -1,0 +1,13 @@
+# Pyzip conf file
+
+# Build folder
+build_folder=pyzip_build
+
+# Maxdepth of repository, for instance
+# you should avoid to run pyzip from root
+maxdepth=4
+
+# Python cmd to use
+python=python3
+
+

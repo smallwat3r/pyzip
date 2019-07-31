@@ -1,0 +1,129 @@
+#!/bin/bash
+# File              : pyzip
+# Author            : Matthieu Petiteau <mpetiteau.pro@gmail.com>
+# Date              : Wed 31 Jul 19:35:00 2019
+# Last Modified Date: Wed 31 Jul 19:35:00 2019
+# Last Modified By  : Matthieu Petiteau <mpetiteau.pro@gmail.com>
+#                   _
+#   _ __  _   _ ___(_)_ __
+#  | '_ \| | | |_  / | '_ \
+#  | |_) | |_| |/ /| | |_) |
+#  | .__/ \__, /___|_| .__/
+#  |_|    |___/      |_|
+
+
+# Load conf from possible locations.
+conf_dir=(.pyzipconf ../.pyzipconf $XDG_CONFIG_HOME/.pyzipconf $HOME/.config/.pyzipconf $HOME/.pyzipconf)
+for d in "${conf_dir[@]}"
+do
+  if [ -f $d ]
+  then
+    . $d
+    break
+  fi
+done
+
+dest=$build_folder
+maxdepth=$maxdepth
+python=$python
+
+if [[ -z $maxdpeth ]]
+then
+  # Default Python
+  python="python3"
+fi
+
+if [[ -z $maxdpeth ]]
+then
+  # Default maxdepth
+  maxdepth=4
+fi
+
+if [[ -z $dest ]]
+then
+  # Default build folder
+  dest="pyzip_folder"
+fi
+
+dir=$(pwd)
+dest="pyzip_build"
+build="$dest/build"
+
+# Exclude unwanted files or folders.
+while getopts "e:" opt
+do
+  case $opt
+    in
+    e) EXCLUDE+=($OPTARG);;
+  esac
+done
+
+echo "                 _       "
+echo " _ __  _   _ ___(_)_ __  "
+echo "| '_ \| | | |_  / | '_ \ "
+echo "| |_) | |_| |/ /| | |_) |"
+echo "| .__/ \__, /___|_| .__/ "
+echo "|_|    |___/      |_|    "
+echo " "
+echo "[*] You are goind to build a zip python package"
+echo "[*] Files & folders ignored: ${EXCLUDE[@]}"
+read -p "[>] Continue (y/n)? " CHOICE
+echo
+if [ $CHOICE == "y" ]
+then
+  EXCLUDE+=('venv' $dest '.')
+
+  # Create build destination.
+  if [[ -d $dest ]]
+  then
+    rm -rf $dest
+  fi
+  FILES=$(find * -maxdepth $maxdepth -type f)
+
+  mkdir $dest
+  mkdir $build
+
+  # Copy the files and folders in build destination.
+  echo "[+] Copy files in build destination."
+  for f in $FILES
+  do
+    # Do not include the files we do not want.
+    if [[ ! ${EXCLUDE[@]} =~ (^|[[:space:]])$f($|[[:space:]]) ]] && [[ ! -z $f ]]
+    then
+      # If file is located in subfodler we need to create it.
+      dir=$(dirname $f)
+      if [[ $dir != '.' ]]
+      then
+        mkdir -p $dir "$build/$dir"
+        cp -f $f "$build/$f"
+      else
+        cp -f $f $build
+      fi
+    fi
+  done
+
+  # Install requirements from virtual env.
+  if [[ -f requirements.txt ]]
+  then
+    # If venv not created.
+    if [[ ! -d venv ]]
+    then
+      echo "[!] No virtual env created as venv."
+      echo "[+] Creating a virtual env."
+      virtualenv -p $python venv --no-site-package > /dev/null
+    fi
+    # Install dependencies.
+    source venv/bin/activate
+    echo "[+] Installing requirements."
+    pip install -r requirements.txt -t $build > /dev/null
+    deactivate
+  else
+    echo "[.] No requirements.txt file found"
+  fi
+
+  # Zip results.
+  zip -r "$dest/build.zip" $build > /dev/null
+  echo "[+] Zip file created in $dest"
+else
+  echo "[+] Cancelled."
+fi
