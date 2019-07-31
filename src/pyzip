@@ -12,6 +12,14 @@
 #  |_|    |___/      |_|
 
 
+# Check if virtual env venv is created.
+if [[ ! -d venv ]]
+then
+  echo "You need to create a virtual env named venv."
+  echo "ex: virtualenv -p python3 venv --no-site-package"
+  exit 1
+fi
+
 # Load conf from possible locations.
 conf_dir=(.pyzipconf ../.pyzipconf $XDG_CONFIG_HOME/.pyzipconf $HOME/.config/.pyzipconf $HOME/.pyzipconf)
 for d in "${conf_dir[@]}"
@@ -25,13 +33,6 @@ done
 
 dest=$build_folder
 maxdepth=$maxdepth
-python=$python
-
-if [[ -z $maxdpeth ]]
-then
-  # Default Python
-  python="python3"
-fi
 
 if [[ -z $maxdpeth ]]
 then
@@ -105,13 +106,6 @@ then
   # Install requirements from virtual env.
   if [[ -f requirements.txt ]]
   then
-    # If venv not created.
-    if [[ ! -d venv ]]
-    then
-      echo "[!] No virtual env created as venv."
-      echo "[+] Creating a virtual env."
-      virtualenv -p $python venv --no-site-package > /dev/null
-    fi
     # Install dependencies.
     source venv/bin/activate
     echo "[+] Installing requirements."

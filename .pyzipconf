@@ -7,7 +7,4 @@ build_folder=pyzip_build
 # you should avoid to run pyzip from root
 maxdepth=4
 
-# Python cmd to use
-python=python3
-
 
