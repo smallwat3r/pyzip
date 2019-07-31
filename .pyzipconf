@@ -3,8 +3,7 @@
 # Build folder
 build_folder=pyzip_build
 
-# Maxdepth of repository, for instance
-# you should avoid to run pyzip from root
+# Max depth of foders in your projects
+# for instance you should avoir running 
+# pyzip from root
 maxdepth=4
-
-
