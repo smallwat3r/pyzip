@@ -47,7 +47,6 @@ then
 fi
 
 dir=$(pwd)
-dest="pyzip_build"
 build="$dest/build"
 
 # Exclude unwanted files or folders.
