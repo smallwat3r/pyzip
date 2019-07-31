@@ -35,6 +35,7 @@ To run, you must have create a virtual env named `venv` in the same folder from 
 Indeed, Pyzip will source this virtual env to make sure the dependencies it will install are running for the same software versions.  
 
 You can **exclude** files or entire folders from Pyzip using `-e` (stands for exclude).  
+**Note that you have to repeat `e` for each files or folders.**  
 
 ```sh
 pyzip -e readme.md -e logs -e test/dummy.txt
