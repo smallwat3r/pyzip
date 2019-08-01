@@ -9,7 +9,7 @@
 
 # pyzip
 
-Pyzip is a simple bash script that allows you to quickly package a python project in a `.zip` file ready to upload to AWS Lambda.  
+Pyzip is a simple bash script that allows you to quickly package a python project in a `.zip` file. 
 
 ![Alt Text](https://github.com/smallwat3r/pyzip/blob/master/demo/demo.gif)
 
