@@ -26,8 +26,7 @@ cp src/pyzip /usr/local/bin/pyzip && chmod 755 /usr/local/bin/pyzip
 
 In `~/.pyzipconfig` you can enter Pyzip configurations   
 - `build_folder`: name of the folder that will be created to install the dependencies and store the ouput zip file (default `pyzip_build`).  
-- `maxdepth`: the max depth of folders in your project. For instance you should avoid running it from root (default `4`)   
-- `python`: the python command version of your system (default `python3`).  
+- `maxdepth`: the max depth of sub-folders in your project. Basically Pyzip won't look in folders deeper than this. For instance you should avoid running it from root so the default should be enough (default `4`)   
 
 ## How to
 
