@@ -39,5 +39,5 @@ You can **exclude** files or entire folders from Pyzip using `-e` (stands for ex
 pyzip -e readme.md -e logs -e test/dummy.txt
 ```
 
-If will generate a new folder `pyzip_build` with your `build.zip` file ready to be uploaded in Lambda.  
-In `pyzip_build/build` you can also see the detail of the files, plus dependencies installed.  
+It will generate a new folder `pyzip_build` with your `build.zip` file ready to be uploaded to Lambda.  
+In `pyzip_build/build` you can also see the detail of the files, plus dependencies installed in the zip file.  
