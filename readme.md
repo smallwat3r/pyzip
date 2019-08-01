@@ -33,7 +33,7 @@ In `~/.pyzipconfig` you can enter Pyzip configurations
 To run, you must have created a virtual env named `venv` in the same folder from where you will run `pyzip`.  
 
 You can **exclude** files or entire folders from Pyzip using `-e` (stands for exclude).  
-**Note that you have to repeat `-e` for each files or folders.**  
+**Note that you have to repeat `-e` for each files or folders you want to exclude.**  
 
 ```sh
 pyzip -e readme.md -e logs -e test/dummy.txt
@@ -41,4 +41,3 @@ pyzip -e readme.md -e logs -e test/dummy.txt
 
 If will generate a new folder `pyzip_build` with your `build.zip` file ready to be uploaded in Lambda.  
 In `pyzip_build/build` you can also see the detail of the files, plus dependencies installed.  
-
