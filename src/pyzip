@@ -34,7 +34,7 @@ done
 dest=$build_folder
 maxdepth=$maxdepth
 
-if [[ -z $maxdpeth ]]
+if [[ -z $maxdepth ]]
 then
   # Default maxdepth
   maxdepth=4
